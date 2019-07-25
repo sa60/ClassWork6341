@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width,inital-scale=1">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <main class"container">
+            <div class="row">
+            {
+                % for product in product %
+            }
+            <div class="col-md-3" data-id="{{product.product.id}}">
+            <h3>{{product.name}}</h3>
+            <h6>{{product.price}}</h6>
+            <p>{{product.description}}</p>
+            </div>
+            {% endfor %}
+            </div>
+            </main>
+            </body>
+
+</html>
