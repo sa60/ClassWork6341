@@ -22,7 +22,7 @@ class ProductDetail extends product{
 
         $statement = $this -> connection -> prepare( $query );
         $statement -> bind_param('i', $id );
-        if( $statement -> excecute()){
+        if( $statement -> execute()){
             //$product_detail = array();
             $result = $statement -> get_result();
             $row = $result -> fetch_assoc();

@@ -34,12 +34,12 @@ class Navigation extends Database{
             menu,
             content
             FROM page
-            WHERE LEVEL >= 1
-            AND LEVEL <= 2
+            WHERE LEVEL >= ?
+            AND LEVEL <= ?
             AND active = 1
             ORDER BY menu_order ASC
         ";
-        $statment = $this -> connection -> prepare( $query );
+        $statement = $this -> connection -> prepare( $query );
         $statement -> bind_param('ii', $min_level, $max_level );
         if( $statement -> execute() ){
             $result = $statement -> get_result();
@@ -48,7 +48,12 @@ class Navigation extends Database{
                 array_push( $nav_items, $row );
             } 
             $this -> nav_array['navigation'] = $nav_items;
+            $this -> nav_array['active'] = $this -> getActive();
         }
+        return $this -> nav_array;
+    }
+    public function getActive(){
+        return basename($_SERVER['PHP_SELF'] );
     }
 }
 ?>

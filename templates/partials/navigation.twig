@@ -3,13 +3,18 @@
     <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <form class="form-inline" method="get" action="search.php">
+        <input type="search" name="query" placeholder="Search" class="form-control">
+        <button type="submit" class"btn btm-primary">Search</button>
+    </form>    
     <div class="collapse navbar-collapse" id="main-nav" >
         <nav class="nav navbar-nav">
-            <a class="nav-link" href="index.php">Home</a>
-            <a class="nav-link" href="register.php">Register</a>
-            <a class="nav-link" href="login.php">Login</a>
+        {% for item in navigation.navigation %}
+            {% set active = (item.url == navigation.active ) ? 'active' : '' %}
+            <a class="nav-link {{active}}" href="{{item.url}}">{item.menu}}</a>
+        {% endfor %}    
         </nav>
-        </div>
+    </div>
 
 
 </div>
