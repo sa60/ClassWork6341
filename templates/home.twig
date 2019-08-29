@@ -6,32 +6,34 @@
         <main class="container-fluid" style="padding-top:30px;">
         <div class="row">
             <div class="col-md-2">
-                {% includ 'partials/category.twig' %}
+                {% include 'partials/category.twig' %}
             </div>
-            <div class="col-md-10"></div>
-            <div class="row">
-            {% set count = products | length %}
-                <div class="col">
-                    <h6>
-                    <span class ="badge badge-primary">{{count}}</span>
-                    products found
-                    </h6>
+            <div class="col-md-10">
+                <div class="row">
+                {% set count = products | length %}
+                    <div class="col">
+                        <h6>
+                        <span class ="badge badge-primary">{{count}}</span>
+                        products found
+                        </h6>
+                    
                     </div>
-                </div>
 
+                </div>
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-md-3" data-id="{{product.product.id}}">
+                        <img class="img-fluid" src="images/products/products/{{product.image}}">
+                        <h3>{{product.name}}</h3>
+                        <h6>{{product.price}}</h6>
+                        <p>{{product.description | slice(0,50) ~ '...' }}</p>
+                        <a href="detail.php?product_id={{product.product_id}}">Info</a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% for product in products %}
-            <div class="col-md-3" data-id="{{product.product.id}}">
-                <img class="img-fluid" src="images/products/products/{{product.image}}">
-                <h3>{{product.name}}</h3>
-                <h6>{{product.price}}</h6>
-                <p>{{product.description | slice(0,50) ~ '...' }}</p>
-                <a href="detail.php?product_id={{product.product_id}}">Info</a>
-            </div>
-            {% endfor %}
-            </div>
-            </div>
-            </div>
+            
+        </div> 
         </main>
     </body>
 

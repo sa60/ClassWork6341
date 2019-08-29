@@ -6,7 +6,7 @@ use aitsydney\Database;
 class Category Extends Database{
     public $categories = array();
 
-    public function __constuct(){
+    public function __construct(){
         parent::__construct();
     }
 
@@ -24,11 +24,11 @@ class Category Extends Database{
             }
             else{
                 $result = $statement -> get_result();
-                $categeory_items = array();
+                $category_items = array();
                 while( $row = $result -> fetch_assoc()){
                     array_push( $category_items , $row );
                 }
-                $this -> categories['items'] = $categories_items;
+                $this -> categories['items'] = $category_items;
                 $this -> categories['active'] = $this -> getActive();
             }
             return $this -> categories;

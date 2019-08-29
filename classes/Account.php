@@ -27,7 +27,7 @@ class Account extends Database{
             //query to insert into database
             $query = "
                 INSERT INTO account (account_id,email,password,created,accessed,updated)
-                VALUES( ?, ?, ?, NOW(), NOW(), NOW() )
+                VALUES( UNHEX(?), ?, ?, NOW(), NOW(), NOW() )
             ";
             try{
                 $statement = $this->connection->prepare($query);
@@ -41,6 +41,7 @@ class Account extends Database{
                 else{
                     //account is created
                     $register_response['success'] = true;
+                    $this -> setUserSession( $id );
                 }
             }
             catch( Exception $exe ){
@@ -58,16 +59,77 @@ class Account extends Database{
 
     public function createAccountId(){
         if( function_exists('random_bytes')){
-            $bytes = random_bytes(8);
+            $bytes = random_bytes(16);
         }
         else{
-            $bytes = openssl_random_pseudo_bytes(8);
+            $bytes = openssl_random_pseudo_bytes(16);
         }
         return bin2hex($bytes);
     }
 
-    public function login( $email, $password ){
+    private function setUserSession( $account_id ){
+        if( session_status() == PHP_SESSION_NONE ){
+            session_start();
+        }
+        $_SESSION['auth'] = $account_id;
+    }
 
+    public function logout(){
+        if( session_status() == PHP_SESSION_NONE ){
+            session_start();
+        }
+        unset( $_SESSION['auth'] );
+    } 
+
+    public function login( $email, $password ){
+        $response = array();
+        $errors = array();
+        $query = "
+            SELECT HEX( account_id ) as account_id,email,password
+            FROM account
+            WHERE email = ?        
+        ";
+        try{
+            $statement = $this -> connection -> prepare( $query );
+            if( $statement == false ){
+                throw new \Exception('query error');
+            }
+            if( $statement -> bind_param('s', $email ) == false ){
+                throw new \Exception('parameter error');
+            }
+            if( $statement -> execute() == false ){
+                throw new \Exception('execution error');
+            }
+            else{
+                // query runs successfully
+                $result = $statement -> get_result();
+                $account = $result -> fetch_assoc();
+                if( $result -> num_rows == 0){
+                    //account does not exist in database
+                    $errors['account'] = 'account not found';
+                }
+                else{
+                    // see if passwords match
+                    if( password_verify($password,$account['password']) == false){
+                        //passwords dont match
+                        $errors['account'] = 'credentials do not match out records';
+                    }
+                }
+            }
+        }
+        catch( Exception $exc ){
+            error_log( $exc -> getMessage());
+        }
+        // check if there are errors
+        if( count($errors) > 0 ){
+            $response['success'] = false;
+            $response['errors'] = $errors;
+        }
+        else{
+            $response['success'] = true;
+            $this -> setUserSession( $account['account_id']);
+        }
+        return $response;
     }
 }
 ?>

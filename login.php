@@ -14,10 +14,11 @@ if( $_SERVER['REQUEST_METHOD']=='POST' ){
 
     //create an instance of Account class
     $acc = new Account();
-    $register = $acc -> register( $email, $password );
+    $login = $acc -> login( $email, $password );
+    print_r($login);
 }
 else{
-    $register='';
+    $login='';
 }
 
 //create twig loader for templates
@@ -25,12 +26,12 @@ $loader = new Twig_Loader_Filesystem('templates');
 //create twig environment and pass the loader
 $twig = new Twig_Environment($loader);
 //call a twig template
-$template = $twig -> load('register.twig');
+$template = $twig -> load('login.twig');
 //output the template and pass the data
 
 echo $template -> render( array(
-    'register' => $register,
+    'login' => $login,
     'navigation' => $navigation,
-    'title' => 'Register for an account'
+    'title' => 'Login to your account'
 ) );
 ?>

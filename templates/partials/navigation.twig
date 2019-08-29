@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="main-nav" >
         <nav class="nav navbar-nav">
         {% for item in navigation.navigation %}
-            {% set active = (item.url == navigation.active ) ? 'active' : '' %}
-            <a class="nav-link {{active}}" href="{{item.url}}">{item.menu}}</a>
+            {% set active = (item.url == item.active ) ? 'active' : '' %}
+            <a class="nav-link {{active}}" href="{{item.url}}">{{item.menu}}</a>
         {% endfor %}    
         </nav>
     </div>

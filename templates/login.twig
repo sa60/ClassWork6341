@@ -6,27 +6,25 @@
         <main class="container-fluid">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                <form id="register-form" action="register.php" method="post">
-                    <h1>Register for an account</h1>
+                <form id="register-form" action="login.php" method="post">
+                    <h1>Login for an account</h1>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="you@example.com" class="form-control">
-                        {% if register.errors.email %}
-                            <span class="text-danger">{{register.errors.email}}</span>
-                        {% endif %}
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="minimum 8 characters" class="form-control">
-                        {% if register.errors.password %}
-                            <span class="text-danger">{{register.errors.password}}</span>
-                        {% endif %}
                     </div>
-                    <button class="btn btn-primary" type="submit">Register</button>
-                    {% if register.success %}
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    {% if login.success %}
                         <div class="alert alert-success">
-                        Your account has been created!
+                            Login Successful!
                         </div>
+                        {% elseif login.errors.account %}
+                            <div class="alert alert-warning">
+                                {{login.errors.account}}
+                            </div>
                     {% endif %}
                 </form>
                 </div>
