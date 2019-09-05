@@ -28,6 +28,7 @@ $template = $twig -> load('home.twig');
 //output the template and pass the data
 
 echo $template -> render( array(
+    'categories' => $categories,
     'navigation' => $navigation,
     'products' => $products,
     'title' => 'Welcome to the shop'

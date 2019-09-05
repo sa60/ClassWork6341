@@ -40,11 +40,11 @@ class Search extends Database{
             else{
                 $result = $statement -> get_result();
                 $items = array();
-                while( $row = $result -> fetch-assoc() ){
+                while( $row = $result -> fetch_assoc() ){
                     array_push( $items, $row );
                 }
                 $this -> search_result['items'] = $items;
-                $this -> search_result['query'] = $this -> search-query;
+                $this -> search_result['query'] = $this -> search_query;
                 return $this -> search_result; 
             }
         }
