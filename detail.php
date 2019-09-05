@@ -9,14 +9,14 @@ $navigation = $nav -> getNavigation();
 use aitsydney\ProductDetail;
 
 //get the product id from request
-if( isset($_GET['product_id']) == false ){
+if( isset( $_GET['product_id']) == false ){
     echo "incorrect parameter";
     exit();
 }
 
 //initialise ProductDetail class
 $pd = new ProductDetail();
-$detail = $pd -> getProductDetail( $_GET['product_id']);
+$detail = $pd -> getProductDetail( $_GET['product_id'] );
 
 //create the view using Twig
 $loader = new Twig_Loader_Filesystem('templates');
@@ -27,8 +27,8 @@ $template = $twig -> load('detail.twig');
 //output the template and pass the data
 
 echo $template -> render( array(
-    'Navigation' => $navigation,
+    'navigation' => $navigation,
     'detail' => $detail,
-    'title' =>  $detail['product']['name']
+    'title' => $detail['product']['name']
 ) );
 ?>

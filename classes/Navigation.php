@@ -18,7 +18,7 @@ class Navigation extends Database{
     }
 
     public function getNavigation(){
-        if( isset( $_SESSION['auth']) ){
+        if( isset($_SESSION['auth']) ){
             $max_level = 2;
             $min_level = 1;
         }
@@ -27,15 +27,15 @@ class Navigation extends Database{
             $min_level = 0;
         }
         $query = "
-            SELECT
+            SELECT 
             page_id,
             name,
             url,
             menu,
             content
-            FROM page
-            WHERE LEVEL >= ?
-            AND LEVEL <= ?
+            FROM page 
+            WHERE level >= ? 
+            AND level <= ? 
             AND active = 1
             ORDER BY menu_order ASC
         ";
@@ -46,14 +46,14 @@ class Navigation extends Database{
             $nav_items = array();
             while( $row = $result -> fetch_assoc() ){
                 array_push( $nav_items, $row );
-            } 
+            }
             $this -> nav_array['navigation'] = $nav_items;
             $this -> nav_array['active'] = $this -> getActive();
         }
         return $this -> nav_array;
     }
     public function getActive(){
-        return basename($_SERVER['PHP_SELF'] );
+        return basename( $_SERVER['PHP_SELF'] );
     }
 }
 ?>

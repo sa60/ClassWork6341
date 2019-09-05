@@ -1,14 +1,16 @@
 <?php
 require('vendor/autoload.php');
 
+//create navigation
 use aitsydney\Navigation;
 
 $nav = new Navigation();
 $navigation = $nav -> getNavigation();
 
-use aitsydney\Product;
 
 //create an instance of Product class
+use aitsydney\Product;
+
 $p = new Product();
 $products = $p -> getProducts();
 
@@ -18,7 +20,6 @@ use aitsydney\Category;
 $cat = new Category();
 $categories = $cat -> getCategories();
 
-//print_r($products);
 //create twig loader for templates
 $loader = new Twig_Loader_Filesystem('templates');
 //create twig environment and pass the loader

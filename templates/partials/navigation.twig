@@ -1,20 +1,19 @@
-<div class="navbar navbar-dark bg-dark navbar-expand-lg">
+<div class="navbar navbar-dark bg-primary navbar-expand-lg sticky-top">
     <a href="index.php" class="navbar-brand">Shop</a>
     <button class="navbar-toggler" data-target="#main-nav" data-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
     </button>
     <form class="form-inline" method="get" action="search.php">
-        <input type="search" name="query" placeholder="Search" class="form-control">
-        <button type="submit" class"btn btm-primary">Search</button>
-    </form>    
-    <div class="collapse navbar-collapse" id="main-nav" >
+        {% set search = (result.query) ? result.query : '' %}
+        <input type="search" name="query" placeholder="Search" class="form-control" value="{{search}}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <div class="collapse navbar-collapse" id="main-nav">
         <nav class="nav navbar-nav">
         {% for item in navigation.navigation %}
-            {% set active = (item.url == item.active ) ? 'active' : '' %}
+            {% set active = ( item.url == navigation.active ) ? 'active' : '' %}
             <a class="nav-link {{active}}" href="{{item.url}}">{{item.menu}}</a>
-        {% endfor %}    
+        {% endfor %}
         </nav>
     </div>
-
-
 </div>
