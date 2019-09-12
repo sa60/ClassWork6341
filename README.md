@@ -71,12 +71,37 @@ The *--save* switch will ensure that the packages installed will be added as a d
 ## Adding database tables
 Download the *.sql* files from the *db_tables* directory of this repository. Open PhpMyAdmin and create a database that we will use for the project. Then import the *sql* files one by one, in the following order:
 - product.sql
-- images.sql
+- category.sql
+- image.sql
 - product_image.sql
 - product_quantity.sql
 - product_category.sql
 
 These will provide some sample data for our project.
+
+# Connecting to the database
+In the root of the project directory, you need to create a file named *.htaccess* . This file is needed to store the credentials of the database account, so it is not hard coded in the database class. Using this method, plus the use of *.gitignore* file, you can store the database account credentials needed to run the application without having the file tracked by git. See the section on *Excluding files from git*
+```
+SetEnv dbuser your database user
+SetEnv dbpass your database password
+SetEnv dbname your database name
+SetEnv dbhost your database host
+```
+# Excluding files and directories from git
+Sometimes, some files need to be excluded from git, such as configuration files, *.htaccess* file, dev dependencies and others. To exclude files and directories, you need to create a *.gitignore* file in the root directory of your project and add the names of the files and directories you wish to exclude from git, one file or directory per line for example
+```
+node_modules
+vendor
+.htaccess
+```
+## Removing files that are already in git
+To remove files that are already tracked by git, such as files or directories that you have just added to the *.gitignore* file, you need to remove it from the git cache, before making a commit. For example, if you were to remove the *node_modules* directory from local git and then from your github repository:
+```
+git rm -rf --cached node_modules
+git add .
+git commit -m "removed node_modules"
+git push origin master
+```
 
 
 

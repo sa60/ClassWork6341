@@ -2,7 +2,6 @@
 <html lang="en">
     {% include 'partials/head.twig' %}
     <body >
-    <h2>Hello</h2>
     {% include 'partials/navigation.twig' %}
         <main class="container-fluid" style="padding-top:30px;">
             <div class="row">
@@ -10,24 +9,28 @@
                     {% include 'partials/category.twig' %}
                 </div>
                 <div class="col-md-10">
-                    <div class="row">
+                    <div class="row mb-2">
                     {% set count = products | length %}
                         <div class="col">
-                            <h6>
+                            <h5>
                            <span class="badge badge-primary">{{count}}</span>
                            products found
-                           </h6>
+                           </h5>
                         </div>
                     </div>
                     <div class="row">
                     {% for product in products %}
+                   
                     <div class="col-md-3" data-id="{{product.product_id}}">
+                     <a href="detail.php?product_id={{product.product_id}}" class="text-dark">
                         <img class="img-fluid" src="images/products/products/{{product.image}}">
-                        <h3>{{product.name}}</h3>
-                        <h6>{{product.price}}</h6>
+                    </a>
+                        <h4 class="text-capitalize">{{product.name}}</h4>
+                        <h6 class="price">{{product.price}}</h6>
                         <p>{{product.description | slice(0,50) ~ '...' }}</p>
-                        <a href="detail.php?product_id={{product.product_id}}">Info</a>
+                    
                     </div>
+                    
                     {% endfor %}
                     </div>
                 </div>

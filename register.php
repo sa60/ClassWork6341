@@ -11,6 +11,7 @@ if( $_SERVER['REQUEST_METHOD']=='POST' ){
   //create an instance of account class
   $acc = new Account();
   $register = $acc -> register( $email, $password );
+  print_r( $register );
 }
 else{
   $register='';

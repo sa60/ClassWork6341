@@ -63,7 +63,7 @@ class Account extends Database{
       //return error messages
       $register_response['errors'] = $register_errors;
       $register_response['success'] = false;
-      //return what the user supplied in email
+      //return what the user wrote in the email field
       $register_response['email'] = $email;
     }
     return $register_response;

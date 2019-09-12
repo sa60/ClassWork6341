@@ -12,14 +12,19 @@ class Product extends Database{
         }
     }
     public function getProducts(){
-        $query = "SELECT 
+        $query = "
+        SELECT 
         @product_id := product.product_id AS product_id,
         product.name,
         product.description,
         product.price,
+        product_quantity.quantity,
         ( SELECT @image_id := product_image.image_id FROM product_image WHERE product_image.product_id = @product_id LIMIT 1 ) AS image_id,
         ( SELECT image_file_name FROM image WHERE image.image_id = @image_id ) AS image
-        FROM product";
+        FROM product
+        INNER JOIN product_quantity
+        ON product.product_id = product_quantity.product_id
+        ";
 
         if( isset( $this -> category ) ){
             $query = $query . 

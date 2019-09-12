@@ -4,11 +4,11 @@
   <body>
     {% include 'partials/navigation.twig' %}
     <main class="container-fluid">
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-md-4 offset-md-4">
           {% set notvalid = (register.response.success == false ) ? 'was-validated' : '' %}
           <form id="register-form" action="register.php" method="post" class={{notvalid}}"">
-            <h1>Register for an account</h1>
+            <h4>Register for an account</h4>
             <div class="form-group">
               <label for="email">Email</label>
               {% set email = (register.email) ? register.email : '' %}
@@ -28,7 +28,7 @@
             </div>
             <button class="btn btn-primary" type="submit">Register</button>
             {% if register.success %}
-              <div class="alert alert-success mt-2">
+              <div class="alert alert-success mt-2 ">
                 Your account has been created!
               </div>
             {% endif %}

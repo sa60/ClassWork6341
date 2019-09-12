@@ -14,12 +14,15 @@ class ProductDetail extends Product{
     public function getProductDetail( $id ){
         $query = "
             SELECT
-            product_id,
-            name,
-            description,
-            price
+            product.product_id,
+            product.name,
+            product.description,
+            product.price,
+            product_quantity.quantity
             FROM product
-            WHERE product_id = ?
+            INNER JOIN product_quantity
+            ON product.product_id = product_quantity.product_id
+            WHERE product.product_id = ?
         ";
         $statement = $this -> connection -> prepare( $query );
         $statement -> bind_param( 'i', $id );
