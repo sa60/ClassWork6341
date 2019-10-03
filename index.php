@@ -1,10 +1,9 @@
 <?php
 require('vendor/autoload.php');
 
-//test for navigation after auth
-//session_start();
-// $_SESSION['auth'] = true;
-// session_destroy();
+use aitsydney\WishList;
+$wish_list = new WishList();
+$wish_total = $wish_list -> getWishListTotal();
 
 use aitsydney\Navigation;
 
@@ -33,6 +32,7 @@ $template = $twig -> load('home.twig');
 
 //pass values to twig
 echo $template -> render([
+    'wish_count' => $wish_total,
     'categories' => $categories,
     'navigation' => $nav_items,
     'products' => $products_result,
