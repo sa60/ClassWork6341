@@ -1,10 +1,9 @@
 <?php
 namespace aitsydney;
-use aitsydney\Database;
-class Product extends Database{
-    public $products = array();
-    public $category = null;
 
+use aitsydney\Database;
+
+class Product extends Database{
     public function __construct(){
         parent::__construct();
         if( isset($_GET['category_id'] ) ){
@@ -26,30 +25,26 @@ class Product extends Database{
         ON product.product_id = product_quantity.product_id
         ";
 
-        if( isset( $this -> category ) ){
-            $query = $query . 
-            " " . 
-            "
-            INNER JOIN
-            product_category
-            ON product_category.product_id = product.product_id
-            WHERE product_category.category_id = ?
-            ";
+        if( isset($_GET['category_id']) ){
+            $query = $query . " " . "INNER JOIN product_category
+            ON product.product_id = product_category.product_id
+            WHERE product_category.category_id = ?";
         }
-
+        
         $statement = $this -> connection -> prepare( $query );
 
-        if( isset( $this -> category ) ){
-            $statement -> bind_param( 'i', $this -> category );
+        if( isset($_GET['category_id']) ){
+            $statement -> bind_param('i', $_GET['category_id']);
         }
 
         if( $statement -> execute() ){
             $result = $statement -> get_result();
+            $product_array = array();
             while( $row = $result -> fetch_assoc() ){
-                array_push( $this -> products, $row );
+                array_push( $product_array, $row );
             }
+            return $product_array;
         }
-        return $this -> products;
     }
     
 }

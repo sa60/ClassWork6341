@@ -2,9 +2,9 @@
     "require": {
         "twig/twig": "1.42.*"
     },
-    "autoload": {
+    "autoload":{
         "psr-4": {
-            "aitsydney\\" : "classes/"
+          "aitsydney\\" : "classes/"
         }
     }
 }

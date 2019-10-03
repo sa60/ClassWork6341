@@ -14,14 +14,14 @@ if( $_SERVER['REQUEST_METHOD']=='POST' ){
   print_r( $register );
 }
 else{
-  $register='';
+  $register = '';
 }
 
 // create navigation
 use aitsydney\Navigation;
 
 $nav = new Navigation();
-$navigation = $nav -> getNavigation();
+$nav_items = $nav -> getNavigation();
 
 
 // create twig loader for templates
@@ -30,11 +30,12 @@ $loader = new Twig_Loader_Filesystem('templates');
 $twig = new Twig_Environment($loader);
 // call a twig template
 $template = $twig -> load('register.twig');
-//output the template and pass the data
 
-echo $template -> render( array(
-    'register' => $register,
-    'navigation' => $navigation,
-    'title' => 'Register for an account'
-) );
+//pass values to twig
+echo $template -> render([
+    'navigation' => $nav_items,
+    'title' => 'Register for an account',
+    'response' => $register
+]);
+
 ?>

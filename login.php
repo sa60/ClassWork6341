@@ -1,7 +1,7 @@
 <?php
 require('vendor/autoload.php');
 
-// create account
+// create account class
 use aitsydney\Account;
 if( $_SERVER['REQUEST_METHOD']=='POST' ){
   $email = $_POST['email'];
